@@ -37,8 +37,8 @@ git merge-base --is-ancestor 0d838d3 HEAD && echo "YES - in QC" || echo "NO - no
 ### 5. Build timeline
 
 ```bash
-# See the complete deployment timeline
-git log --oneline --graph --all --decorate
+# See the complete deployment timeline with graph and dates
+git log --oneline --graph --all --decorate --date=short
 ```
 
 ## Quick Demo Flow
@@ -48,21 +48,21 @@ git log --oneline --graph --all --decorate
 git log --oneline  # 49 commits to scroll through
 
 # 2. The magic solution
-git log --all --full-history -S 'apple_pay' -- src/config/payment.ts
-# Returns exactly 4 relevant commits instead of 49
+git checkout QC
+git log --full-history -S 'apple_pay' -- src/config/payment.ts
+# Returns exactly 3 relevant commits instead of 49
 
 # 3. Check who removed it
 git show 0d838d3 -- src/config/payment.ts
 # Shows Borok Abdel Tawab El Gen removed Apple Pay
 
 # 4. Verify it's in QC
-git checkout QC
 git merge-base --is-ancestor 0d838d3 HEAD && echo "YES" || echo "NO"
 # Result: YES - deployed to QC
 
 # 5. Build the timeline
-git log --oneline --graph --all --decorate
-# See the complete story
+git log --oneline --graph --all --decorate --date=short
+# Shows the complete branching structure with dates
 ```
 
 ## The Story
@@ -74,3 +74,4 @@ git log --oneline --graph --all --decorate
 ## Key Commit Hash
 
 - **Apple Pay removal**: `0d838d3` (by Borok Abdel Tawab El Gen)
+- **Apple Pay addition**: `26790b1` (by Mikha El Monofy)
