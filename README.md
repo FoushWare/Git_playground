@@ -126,9 +126,12 @@ git show 0d838d3 -- src/config/payment.ts
 git merge-base --is-ancestor 0d838d3 HEAD && echo "YES" || echo "NO"
 # Result: YES - deployed to QC
 
-# 5. Build the timeline
-git log --oneline --graph --all --decorate --date=short
-# Shows the complete branching structure with dates
+# 5. Build the timeline (graph with search results)
+git log --all --graph --decorate --date=short -S"apple_pay" -- src/config/payment.ts
+# Shows only Apple Pay commits with graph visualization
+
+# 6. Create timeline-ready output (for video graphics)
+git log --all --date=short -S"apple_pay" -- src/config/payment.ts --pretty=format:"%h|%ad|%s" | while IFS='|' read hash date message; do echo "$date  →  $message  [$hash]"; done
 ```
 
 ## The Story
