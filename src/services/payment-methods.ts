@@ -24,6 +24,12 @@ export const paymentMethods: PaymentMethod[] = [
     icon: 'apple',
     enabled: true,
   },
+  {
+    id: 'google_pay',
+    name: 'Google Pay',
+    icon: 'google',
+    enabled: true,
+  },
 ];
 
 export function getPaymentMethod(id: string): PaymentMethod | undefined {
