@@ -9,3 +9,7 @@ export function capitalize(str: string): string {
 export function truncate(str: string, length: number): string {
   return str.length > length ? str.substring(0, length) + '...' : str;
 }
+
+export function generateId(): string {
+  return Math.random().toString(36).substring(2, 9);
+}
