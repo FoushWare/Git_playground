@@ -40,3 +40,7 @@ export function isPaymentMethodEnabled(id: string): boolean {
   const method = getPaymentMethod(id);
   return method?.enabled ?? false;
 }
+
+export function getEnabledPaymentMethods(): PaymentMethod[] {
+  return paymentMethods.filter(method => method.enabled);
+}
