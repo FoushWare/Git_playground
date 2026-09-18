@@ -3,6 +3,8 @@ export interface PaymentConfig {
   defaultMethod: string;
   currency: string;
   requireVerification: boolean;
+  minAmount: number;
+  maxAmount: number;
 }
 
 export const paymentConfig: PaymentConfig = {
@@ -10,4 +12,6 @@ export const paymentConfig: PaymentConfig = {
   defaultMethod: 'credit_card',
   currency: 'USD',
   requireVerification: true,
+  minAmount: 10,
+  maxAmount: 10000,
 };
