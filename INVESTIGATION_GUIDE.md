@@ -7,15 +7,17 @@
    git checkout main
    ```
 
-2. **Show the deployment timeline:**
+2. **Show the painful git history:**
    ```bash
-   git log --oneline --graph --all --decorate
+   git log --oneline
+   # "48+ commits to scroll through - this is painful!"
    ```
 
 3. **Demonstrate the problem scenario:**
    - "QC team reports Apple Pay is missing"
    - "UAT shows Apple Pay working"
    - "PROD never had Apple Pay"
+   - "Who deleted it and when?"
 
 ## Investigation Flow
 
@@ -72,11 +74,12 @@ git diff UAT QC -- src/config/payment.ts
 
 ## Key Talking Points
 
-1. **The Problem**: Different environments show different payment methods
-2. **The Solution**: `git log -S` tracks content changes across all branches
+1. **The Pain**: 48+ commits to scroll through manually - this is the real problem developers face
+2. **The Solution**: `git log -S` cuts through the noise and finds exactly what matters
 3. **The Insight**: Apple Pay was added by Mikha, deployed to UAT, found problematic, then removed by Borok before reaching PROD
 4. **The Timeline**: v1.0.0 (PROD) → v1.1.0 (UAT with Apple Pay) → v1.2.0-rc (QC without Apple Pay)
 5. **The Villain**: Borok Abdel Tawab El Gen broke things by removing Apple Pay from the deployment pipeline
+6. **The Power**: Instead of scrolling through 48 commits, we get 4 relevant results instantly
 
 ## Environment States
 
@@ -129,4 +132,4 @@ git log --format="%an" 0d838d3^..0d838d3
 
 ## Summary Statement
 
-"Using `git log -S`, we can reconstruct the entire deployment timeline in seconds. Apple Pay was developed by Mikha and deployed to UAT, found to have compatibility issues, removed by Borok in a hotfix, and that hotfix was deployed to QC but never made it to production. Borok Abdel Tawab El Gen is the developer who broke things by removing a working feature from the deployment pipeline. This is the power of content-based git searching - it transforms your git history from a simple log into a forensic investigation tool."
+"Using `git log -S`, we can reconstruct the entire deployment timeline in seconds instead of scrolling through 48+ commits. Apple Pay was developed by Mikha and deployed to UAT, found to have compatibility issues, removed by Borok in a hotfix, and that hotfix was deployed to QC but never made it to production. Borok Abdel Tawab El Gen is the developer who broke things by removing a working feature from the deployment pipeline. This is the power of content-based git searching - it transforms your git history from a painful 48-commit scroll into a precise 4-commit investigation."

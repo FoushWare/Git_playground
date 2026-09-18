@@ -1,6 +1,6 @@
 # Git Log -S Demo Repository
 
-This repository was created to demonstrate the power of `git log -S` for content-based searching in Git history. It simulates a real-world scenario where multiple developers work on payment-related code across different deployment environments.
+This repository was created to demonstrate the power of `git log -S` for content-based searching in Git history. It simulates a real-world scenario where multiple developers work on payment-related code across different deployment environments with **48+ commits** that make manual git log navigation painful.
 
 ## Scenario
 
@@ -230,11 +230,24 @@ git log --follow -- src/config/payment.ts
 
 ## Tips for Your YouTube Episode
 
-1. **Start with the problem**: Show `git log` returning hundreds of commits
-2. **Introduce the solution**: Demonstrate `git log -S 'apple_pay'` returning 2 commits
-3. **Show the evidence**: Use `git show` to display the actual changes
-4. **Verify branch membership**: Use `git merge-base --is-ancestor`
-5. **Build the timeline**: Combine the results to tell the complete story
+1. **Start with the problem**: Show `git log` returning 48+ commits - scrolling through them is painful and ineffective
+2. **Introduce the solution**: Demonstrate `git log -S 'apple_pay'` returning exactly 4 relevant commits instead of 48
+3. **Show the evidence**: Use `git show` to display the actual changes by Borok Abdel Tawab El Gen
+4. **Verify branch membership**: Use `git merge-base --is-ancestor` to check deployment status
+5. **Build the timeline**: Combine the results to tell the complete story of who broke what
+
+## The Pain Factor
+
+This repository contains **48+ commits** from various developers working on different features:
+- Utility functions and helpers
+- Component library development  
+- Configuration changes
+- Service implementations
+- Type definitions and interfaces
+
+Without `git log -S`, finding when Apple Pay was removed would require scrolling through all 48 commits manually, reading commit messages, and checking diffs - a painful and error-prone process.
+
+With `git log -S`, you get exactly the 4 commits that matter in seconds.
 
 ## The Complete Story
 
