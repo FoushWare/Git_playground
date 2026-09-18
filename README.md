@@ -84,24 +84,6 @@ git log --all --graph --decorate --date=short \
   --pretty=format:"%h %ad %d %s"
 ```
 
-### Clean Timeline Format
-
-```bash
-# Create timeline-ready output for your video
-git log --all --date=short -S"apple_pay" \
-  --pretty=format:"%h|%ad|%s" |
-while IFS='|' read hash date message; do
-  echo "$date  →  $message  [$hash]"
-done
-```
-
-This produces output like:
-```
-2026-09-18  →  Add Apple Pay support  [26790b1]
-2026-09-18  →  Set Apple Pay as default payment method  [324a26e]
-2026-09-18  →  Remove Apple Pay due to integration issues  [0d838d3]
-```
-
 ### Search Options
 
 - **-S "exact_string"** - Search for exact string changes (pickaxe)
@@ -129,9 +111,6 @@ git merge-base --is-ancestor 0d838d3 HEAD && echo "YES" || echo "NO"
 # 5. Build the timeline (graph with search results)
 git log --all --graph --decorate --date=short -S"apple_pay" -- src/config/payment.ts
 # Shows only Apple Pay commits with graph visualization
-
-# 6. Create timeline-ready output (for video graphics)
-git log --all --date=short -S"apple_pay" -- src/config/payment.ts --pretty=format:"%h|%ad|%s" | while IFS='|' read hash date message; do echo "$date  →  $message  [$hash]"; done
 ```
 
 ## The Story
