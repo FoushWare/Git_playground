@@ -58,14 +58,24 @@ git log --all --full-history -S "'apple_pay'" -- src/config/payment.ts
 git log --all --full-history -S 'apple_pay' -- src/services/payment-methods.ts
 ```
 
-### 5. Check default payment method changes
+### 5. Check specific payment method references
 
 ```bash
-# Find when default payment method changed
-git log --all --full-history -S 'defaultMethod' -- src/config/payment.ts
+# Find all commits that touched 'paypal' in the config
+git log --all --full-history -S 'paypal' -- src/config/payment.ts
+
+# Find commits that touched the exact array element 'paypal',
+git log --all --full-history -S "'paypal'," -- src/config/payment.ts
 ```
 
-### 6. Verify commit belongs to main branch
+### 6. Search for function additions
+
+```bash
+# Find when the helper function was added
+git log --all --full-history -S 'getEnabledPaymentMethods' -- src/services/payment-methods.ts
+```
+
+### 7. Verify commit belongs to main branch
 
 After finding a commit with `git log -S`, verify it's actually in your current branch:
 
@@ -74,12 +84,28 @@ After finding a commit with `git log -S`, verify it's actually in your current b
 git merge-base --is-ancestor <commit-hash> HEAD && echo "YES - in current branch" || echo "NO - not in current branch"
 ```
 
+### 8. Compare general vs specific searches
+
+```bash
+# Very general - searches for "Pay" (returns fewer results than expected)
+git log --all --full-history -S 'Pay' -- src/config/payment.ts
+
+# More specific - searches for "paypal" (returns more relevant results)
+git log --all --full-history -S 'paypal' -- src/config/payment.ts
+
+# Very specific - searches for exact array element
+git log --all --full-history -S "'paypal'," -- src/config/payment.ts
+```
+
+This demonstrates how narrowing your search term can help you find the exact commits you're looking for.
+
 ## Understanding the Results
 
 When you run `git log -S 'apple_pay'`, you should see:
 
 1. **Commit where Apple Pay was removed** (Abdel Aziz El Masary's hotfix)
-2. **Commit where Apple Pay was added** (Mikha El Monofy's feature)
+2. **Commit where Apple Pay was set as default** (Mikha El Monofy's feature)
+3. **Commit where Apple Pay was added** (Mikha El Monofy's feature)
 
 The `--all` flag ensures we search all branches, and `--full-history` prevents Git from simplifying the history during merges.
 
