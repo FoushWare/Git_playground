@@ -4,7 +4,6 @@
     "methods": {
       "credit_card": "Credit Card",
       "paypal": "PayPal",
-      "apple_pay": "Apple Pay",
       "google_pay": "Google Pay"
     },
     "placeholders": {

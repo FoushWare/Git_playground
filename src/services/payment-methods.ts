@@ -19,12 +19,6 @@ export const paymentMethods: PaymentMethod[] = [
     enabled: true,
   },
   {
-    id: 'apple_pay',
-    name: 'Apple Pay',
-    icon: 'apple',
-    enabled: true,
-  },
-  {
     id: 'google_pay',
     name: 'Google Pay',
     icon: 'google',
