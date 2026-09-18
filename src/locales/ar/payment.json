@@ -1,0 +1,18 @@
+{
+  "payment": {
+    "title": "طرق الدفع",
+    "methods": {
+      "credit_card": "بطاقة ائتمان",
+      "paypal": "باي بال"
+    },
+    "placeholders": {
+      "card_number": "رقم البطاقة",
+      "expiry_date": "تاريخ الانتهاء",
+      "cvv": "رمز الأمان"
+    },
+    "buttons": {
+      "pay_now": "ادفع الآن",
+      "cancel": "إلغاء"
+    }
+  }
+}

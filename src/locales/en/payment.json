@@ -1,0 +1,18 @@
+{
+  "payment": {
+    "title": "Payment Methods",
+    "methods": {
+      "credit_card": "Credit Card",
+      "paypal": "PayPal"
+    },
+    "placeholders": {
+      "card_number": "Card Number",
+      "expiry_date": "Expiry Date",
+      "cvv": "Security Code"
+    },
+    "buttons": {
+      "pay_now": "Pay Now",
+      "cancel": "Cancel"
+    }
+  }
+}
