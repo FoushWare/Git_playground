@@ -39,6 +39,8 @@ git merge-base --is-ancestor 0d838d3 HEAD && echo "YES - in QC" || echo "NO - no
 ```bash
 # Build the Apple Pay timeline specifically (just the relevant commits)
 git log --oneline 26790b1^..0d838d3 -- src/config/payment.ts
+# Or use git log -S for the complete story including old commits
+git log --all --full-history -S 'apple_pay' -- src/config/payment.ts
 ```
 
 ## Quick Demo Flow
