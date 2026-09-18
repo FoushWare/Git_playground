@@ -1,262 +1,77 @@
 # Git Log -S Demo Repository
 
-This repository was created to demonstrate the power of `git log -S` for content-based searching in Git history. It simulates a real-world scenario where multiple developers work on payment-related code across different deployment environments with **48+ commits** that make manual git log navigation painful.
+This repository demonstrates `git log -S` for content-based searching in Git history. It contains **49 commits** that make manual git log navigation painful, perfect for showing the power of `git log -S`.
 
-## Scenario
+## The 5 Essential Commands for Your YouTube Episode
 
-The repository contains a payment system with multiple payment methods. Over time, different developers added and removed payment methods through feature branches and hotfixes. This creates the perfect scenario to demonstrate `git log -S`.
-
-## Deployment Environments
-
-The repository simulates a realistic deployment pipeline:
-
-- **main** - Development branch (latest code)
-- **QC** - Quality Control environment (current: v1.2.0-rc)  
-- **UAT** - User Acceptance Testing environment (current: v1.1.0-uat)
-- **PROD** - Production environment (current: v1.0.0)
-
-See `DEPLOYMENT_PIPELINE.md` for detailed deployment scenario and investigation examples.
-
-## Developers
-
-- **Saloma El Daksh** - Initial setup and basic configuration
-- **Mikha El Monofy** - Added Apple Pay support (feature/apple-pay branch)
-- **Borok Abdel Tawab El Gen** - Added Google Pay support (feature/google-pay branch), then removed Apple Pay due to integration issues (hotfix/remove-apple-pay branch)
-
-## Key Demo Scenario: Apple Pay
-
-Apple Pay was added by Mikha El Monofy in the `feature/apple-pay` branch, then later removed by Borok Abdel Tawab El Gen in the `hotfix/remove-apple-pay` branch due to integration issues. This makes it perfect for demonstrating `git log -S`.
-
-## Git Log -S Examples
-
-### 1. Find when Apple Pay was added and removed
+### 1. git log --full-history (The Pain)
 
 ```bash
-# Search for Apple Pay in the payment configuration
-git log --all --full-history -S 'apple_pay' -- src/config/payment.ts
+# See all 49 commits - painful to scroll through manually
+git log --oneline
 ```
 
-This will show you exactly when `apple_pay` was added and removed from the available methods array.
-
-### 2. Search for translation key changes
+### 2. git log search in QC only
 
 ```bash
-# Search for Apple Pay in English translations
-git log --all --full-history -S 'Apple Pay' -- src/locales/en/payment.json
-
-# Search for Apple Pay in Arabic translations  
-git log --all --full-history -S 'آبل باي' -- src/locales/ar/payment.json
-```
-
-### 3. Narrow from general to specific
-
-```bash
-# General search - will show many commits related to "Pay"
-git log --all --full-history -S 'Pay' -- src/config/payment.ts
-
-# Specific search - shows only Apple Pay related commits
-git log --all --full-history -S 'apple_pay' -- src/config/payment.ts
-
-# Very specific - shows the exact line change
-git log --all --full-history -S "'apple_pay'" -- src/config/payment.ts
-```
-
-### 4. Search in payment methods service
-
-```bash
-# Find when Apple Pay was added to the payment methods array
-git log --all --full-history -S 'apple_pay' -- src/services/payment-methods.ts
-```
-
-### 5. Check specific payment method references
-
-```bash
-# Find all commits that touched 'paypal' in the config
-git log --all --full-history -S 'paypal' -- src/config/payment.ts
-
-# Find commits that touched the exact array element 'paypal',
-git log --all --full-history -S "'paypal'," -- src/config/payment.ts
-```
-
-### 6. Search for function additions
-
-```bash
-# Find when the helper function was added
-git log --all --full-history -S 'getEnabledPaymentMethods' -- src/services/payment-methods.ts
-```
-
-### 7. Compare differences between environments
-
-```bash
-# See what's different between QC and UAT
-git diff UAT QC -- src/config/payment.ts
-
-# See what's different between main and PROD
-git diff PROD main -- src/config/payment.ts
-```
-
-### 8. Verify commit belongs to specific environment
-
-```bash
-# Check if Apple Pay removal is deployed to QC
-git checkout QC
-git merge-base --is-ancestor 0d838d3 HEAD && echo "YES - deployed to QC" || echo "NO - not in QC"
-
-# Check if Apple Pay removal is deployed to UAT
-git checkout UAT
-git merge-base --is-ancestor 0d838d3 HEAD && echo "YES - deployed to UAT" || echo "NO - not in UAT"
-
-# Check if Apple Pay removal is deployed to PROD
-git checkout PROD
-git merge-base --is-ancestor 0d838d3 HEAD && echo "YES - deployed to PROD" || echo "NO - not in PROD"
-```
-
-### 9. View deployment timeline with tags
-
-```bash
-# See all release tags across environments
-git tag --list
-
-# View commits with tag decorations
-git log --oneline --graph --all --decorate
-```
-
-### 10. Investigate across deployment environments
-
-```bash
-# Check Apple Pay status in QC environment
+# Search specifically in QC branch
 git checkout QC
 git log --full-history -S 'apple_pay' -- src/config/payment.ts
+```
 
-# Check Apple Pay status in UAT environment
-git checkout UAT
+### 3. git show diff (The Evidence)
+
+```bash
+# See exactly what changed in a specific commit
+git show 0d838d3 -- src/config/payment.ts
+```
+
+### 4. Check if commit is part of QC branch
+
+```bash
+# Verify the commit belongs to QC
+git checkout QC
+git merge-base --is-ancestor 0d838d3 HEAD && echo "YES - in QC" || echo "NO - not in QC"
+```
+
+### 5. Build timeline
+
+```bash
+# Build the Apple Pay timeline specifically (just the relevant commits)
+git log --oneline 26790b1^..0d838d3 -- src/config/payment.ts
+```
+
+## Quick Demo Flow
+
+```bash
+# 1. Show the pain
+git log --oneline  # 49 commits to scroll through
+
+# 2. The magic solution
+git checkout QC
 git log --full-history -S 'apple_pay' -- src/config/payment.ts
+# Returns exactly 3 relevant commits instead of 49
 
-# Check Apple Pay status in PROD environment
-git checkout PROD
-git log --full-history -S 'apple_pay' -- src/config/payment.ts
+# 3. Check who removed it
+git show 0d838d3 -- src/config/payment.ts
+# Shows Borok Abdel Tawab El Gen removed Apple Pay
+
+# 4. Verify it's in QC
+git merge-base --is-ancestor 0d838d3 HEAD && echo "YES" || echo "NO"
+# Result: YES - deployed to QC
+
+# 5. Build the timeline
+git log --oneline 26790b1^..0d838d3 -- src/config/payment.ts
+# Shows just the Apple Pay story
 ```
 
-This helps you understand why features exist in some environments but not others.
+## The Story
 
-### 11. Compare general vs specific searches
+- **Mikha El Monofy**: Added Apple Pay and set it as default
+- **Borok Abdel Tawab El Gen**: Removed Apple Pay due to integration issues (the breaker)
+- **Result**: Apple Pay was in UAT but removed before reaching PROD
 
-```bash
-# Very general - searches for "Pay" (returns fewer results than expected)
-git log --all --full-history -S 'Pay' -- src/config/payment.ts
+## Key Commit Hash
 
-# More specific - searches for "paypal" (returns more relevant results)
-git log --all --full-history -S 'paypal' -- src/config/payment.ts
-
-# Very specific - searches for exact array element
-git log --all --full-history -S "'paypal'," -- src/config/payment.ts
-```
-
-This demonstrates how narrowing your search term can help you find the exact commits you're looking for.
-
-## Additional Documentation
-
-For detailed deployment pipeline investigation scenarios, see `DEPLOYMENT_PIPELINE.md`.
-
-## Understanding the Results
-
-When you run `git log -S 'apple_pay'`, you should see:
-
-1. **Commit where Apple Pay was removed** (Borok Abdel Tawab El Gen's hotfix)
-2. **Commit where Apple Pay was set as default** (Mikha El Monofy's feature)
-3. **Commit where Apple Pay was added** (Mikha El Monofy's feature)
-
-The `--all` flag ensures we search all branches, and `--full-history` prevents Git from simplifying the history during merges.
-
-## Why This Works
-
-The `-S` flag doesn't search commit messages - it searches the actual file content. It counts how many times the search string appears before and after each commit. When the count changes, Git shows you that commit.
-
-This is perfect for:
-- Finding when a feature was added/removed
-- Tracking configuration changes
-- Identifying when a bug was introduced
-- Understanding the evolution of specific code
-
-## Project Structure
-
-```
-src/
-├── config/
-│   └── payment.ts          # Payment configuration with available methods
-├── locales/
-│   ├── ar/
-│   │   └── payment.json    # Arabic payment translations
-│   └── en/
-│       └── payment.json    # English payment translations
-├── services/
-│   └── payment-methods.ts  # Payment method implementations
-└── components/
-    └── PaymentForm.tsx     # Payment form component
-```
-
-## Git Branch Structure
-
-### Development Branches
-- `main` - Main development branch
-- `feature/apple-pay` - Branch where Apple Pay was added (merged)
-- `feature/google-pay` - Branch where Google Pay was added (merged)
-- `hotfix/remove-apple-pay` - Branch where Apple Pay was removed (merged)
-
-### Environment Branches
-- `QC` - Quality Control environment (v1.2.0-rc)
-- `UAT` - User Acceptance Testing environment (v1.1.0-uat)
-- `PROD` - Production environment (v1.0.0)
-
-## Additional Git Commands for Investigation
-
-### See the actual changes in a commit
-
-```bash
-git show <commit-hash> -- src/config/payment.ts
-```
-
-### Compare branches
-
-```bash
-git diff main feature/apple-pay -- src/config/payment.ts
-```
-
-### See commit history with file changes
-
-```bash
-git log --follow -- src/config/payment.ts
-```
-
-## Tips for Your YouTube Episode
-
-1. **Start with the problem**: Show `git log` returning 48+ commits - scrolling through them is painful and ineffective
-2. **Introduce the solution**: Demonstrate `git log -S 'apple_pay'` returning exactly 4 relevant commits instead of 48
-3. **Show the evidence**: Use `git show` to display the actual changes by Borok Abdel Tawab El Gen
-4. **Verify branch membership**: Use `git merge-base --is-ancestor` to check deployment status
-5. **Build the timeline**: Combine the results to tell the complete story of who broke what
-
-## The Pain Factor
-
-This repository contains **48+ commits** from various developers working on different features:
-- Utility functions and helpers
-- Component library development  
-- Configuration changes
-- Service implementations
-- Type definitions and interfaces
-
-Without `git log -S`, finding when Apple Pay was removed would require scrolling through all 48 commits manually, reading commit messages, and checking diffs - a painful and error-prone process.
-
-With `git log -S`, you get exactly the 4 commits that matter in seconds.
-
-## The Complete Story
-
-Using `git log -S`, you can reconstruct this timeline:
-
-1. Initial setup with credit card and PayPal (Saloma)
-2. Apple Pay added and set as default (Mikha)
-3. Google Pay added (Borok)
-4. Apple Pay removed due to integration issues (Borok)
-5. Default changed back to credit card (Borok)
-
-This demonstrates how `git log -S` transforms Git history from a simple commit log into a powerful investigative tool.
+- **Apple Pay removal**: `0d838d3` (by Borok Abdel Tawab El Gen)
+- **Apple Pay addition**: `26790b1` (by Mikha El Monofy)
