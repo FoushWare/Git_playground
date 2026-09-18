@@ -4,7 +4,6 @@
     "methods": {
       "credit_card": "بطاقة ائتمان",
       "paypal": "باي بال",
-      "apple_pay": "آبل باي",
       "google_pay": "جوجل باي"
     },
     "placeholders": {
