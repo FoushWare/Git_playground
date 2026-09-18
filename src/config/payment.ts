@@ -9,7 +9,7 @@ export interface PaymentConfig {
 
 export const paymentConfig: PaymentConfig = {
   availableMethods: ['credit_card', 'paypal'],
-  defaultMethod: 'credit_card',
+  defaultMethod: 'paypal',
   currency: 'USD',
   requireVerification: true,
   minAmount: 10,
