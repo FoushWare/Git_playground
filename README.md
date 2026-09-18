@@ -41,6 +41,38 @@ git merge-base --is-ancestor 0d838d3 HEAD && echo "YES - in QC" || echo "NO - no
 git log --oneline --graph --all --decorate --date=short
 ```
 
+## Advanced: View History Between Specific Commits
+
+To view the history specifically between two commits, you can use range syntax with your graph command:
+
+### 1. Standard Range (From Commit A to Commit B)
+
+```bash
+# See everything after Commit A up to and including Commit B
+git log --graph --date=short --pretty=format:"%C(auto)%h %ad %s %d" 26790b1..0d838d3
+```
+
+### 2. Include Starting Commit (Symmetric Difference)
+
+```bash
+# See entire history between two commits including both endpoints
+git log --graph --left-right --date=short --pretty=format:"%C(auto)%h %ad %s %d" 26790b1...0d838d3
+```
+
+### 3. Between Commit and Current Position
+
+```bash
+# See history from a specific commit to current HEAD
+git log --graph --date=short --pretty=format:"%C(auto)%h %ad %s %d" 26790b1..HEAD
+```
+
+### 4. Between Branches
+
+```bash
+# See history from one branch to another
+git log --graph --date=short --pretty=format:"%C(auto)%h %ad %s %d" UAT..QC
+```
+
 ## Quick Demo Flow
 
 ```bash
