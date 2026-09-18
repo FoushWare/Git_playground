@@ -37,8 +37,8 @@ git merge-base --is-ancestor 0d838d3 HEAD && echo "YES - in QC" || echo "NO - no
 ### 5. Build timeline
 
 ```bash
-# See the complete deployment timeline with graph
-git log --oneline --graph --all --decorate
+# See the complete deployment timeline with graph and dates
+git log --oneline --graph --all --decorate --date=short
 ```
 
 ## Quick Demo Flow
@@ -61,8 +61,8 @@ git merge-base --is-ancestor 0d838d3 HEAD && echo "YES" || echo "NO"
 # Result: YES - deployed to QC
 
 # 5. Build the timeline
-git log --oneline --graph --all --decorate
-# Shows the complete branching structure and story
+git log --oneline --graph --all --decorate --date=short
+# Shows the complete branching structure with dates
 ```
 
 ## The Story
