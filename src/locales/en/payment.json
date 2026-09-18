@@ -3,7 +3,8 @@
     "title": "Payment Methods",
     "methods": {
       "credit_card": "Credit Card",
-      "paypal": "PayPal"
+      "paypal": "PayPal",
+      "apple_pay": "Apple Pay"
     },
     "placeholders": {
       "card_number": "Card Number",
