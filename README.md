@@ -73,6 +73,40 @@ git log --graph --date=short --pretty=format:"%C(auto)%h %ad %s %d" 26790b1..HEA
 git log --graph --date=short --pretty=format:"%C(auto)%h %ad %s %d" UAT..QC
 ```
 
+## Timeline-Ready Output for YouTube
+
+### Visual Graph with Search Results
+
+```bash
+# Build timeline with graph showing only Apple Pay commits
+git log --all --graph --decorate --date=short \
+  -S"apple_pay" \
+  --pretty=format:"%h %ad %d %s"
+```
+
+### Clean Timeline Format
+
+```bash
+# Create timeline-ready output for your video
+git log --all --date=short -S"apple_pay" \
+  --pretty=format:"%h|%ad|%s" |
+while IFS='|' read hash date message; do
+  echo "$date  →  $message  [$hash]"
+done
+```
+
+This produces output like:
+```
+2026-09-18  →  Add Apple Pay support  [26790b1]
+2026-09-18  →  Set Apple Pay as default payment method  [324a26e]
+2026-09-18  →  Remove Apple Pay due to integration issues  [0d838d3]
+```
+
+### Search Options
+
+- **-S "exact_string"** - Search for exact string changes (pickaxe)
+- **-G "regex_pattern"** - Search with regular expressions
+
 ## Quick Demo Flow
 
 ```bash
