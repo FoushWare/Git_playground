@@ -18,6 +18,12 @@ export const paymentMethods: PaymentMethod[] = [
     icon: 'paypal',
     enabled: true,
   },
+  {
+    id: 'apple_pay',
+    name: 'Apple Pay',
+    icon: 'apple',
+    enabled: true,
+  },
 ];
 
 export function getPaymentMethod(id: string): PaymentMethod | undefined {

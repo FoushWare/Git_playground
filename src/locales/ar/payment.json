@@ -3,7 +3,8 @@
     "title": "طرق الدفع",
     "methods": {
       "credit_card": "بطاقة ائتمان",
-      "paypal": "باي بال"
+      "paypal": "باي بال",
+      "apple_pay": "آبل باي"
     },
     "placeholders": {
       "card_number": "رقم البطاقة",
