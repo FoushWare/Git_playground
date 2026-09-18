@@ -37,10 +37,8 @@ git merge-base --is-ancestor 0d838d3 HEAD && echo "YES - in QC" || echo "NO - no
 ### 5. Build timeline
 
 ```bash
-# Build the Apple Pay timeline specifically (just the relevant commits)
-git log --oneline 26790b1^..0d838d3 -- src/config/payment.ts
-# Or use git log -S for the complete story including old commits
-git log --all --full-history -S 'apple_pay' -- src/config/payment.ts
+# See the complete deployment timeline with graph
+git log --oneline --graph --all --decorate
 ```
 
 ## Quick Demo Flow
@@ -63,8 +61,8 @@ git merge-base --is-ancestor 0d838d3 HEAD && echo "YES" || echo "NO"
 # Result: YES - deployed to QC
 
 # 5. Build the timeline
-git log --oneline 26790b1^..0d838d3 -- src/config/payment.ts
-# Shows just the Apple Pay story
+git log --oneline --graph --all --decorate
+# Shows the complete branching structure and story
 ```
 
 ## The Story
